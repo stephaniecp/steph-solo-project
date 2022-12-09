@@ -87,32 +87,32 @@ export class BasePage {
         return elements;
     } 
 
-    /**
-     * Convenience method for drag and drop from the Actions API https://www.selenium.dev/documentation/webdriver/actions_api/
-     * @param fromElement - element to start the drag from
-     * @param toElement - element to drag to
-     * @returns 
-     */
-     async doDragAndDrop(fromElement: WebElement, toElement: WebElement): Promise<void> {
-        //required importing "Actions" 
-        // return this.driver.actions().dragAndDrop(fromElement, toElement).perform()
-        console.log(`doDragAndDrop: starting`)
-        const actionPause = 500
-        const actionPromise = this.driver
-                .actions()
-                .move({origin: fromElement, duration: 500}) //x:20, y:20, 
-                .pause(actionPause)
-                .press(Button.LEFT)
-                .move({origin: Origin.POINTER, x:5, y:5}) // test
-                .pause(actionPause)
-                .move({origin: toElement, duration: 2000})
-                .pause(actionPause)
-                .move({origin: Origin.POINTER, x:5, y:5}) // test
-                .release(Button.LEFT)
-                .pause(actionPause)
-                .perform();
-        console.log(`doDragAndDrop: Action promise constructed`)
-        return actionPromise
-    }
+    // /**
+    //  * Convenience method for drag and drop from the Actions API https://www.selenium.dev/documentation/webdriver/actions_api/
+    //  * @param fromElement - element to start the drag from
+    //  * @param toElement - element to drag to
+    //  * @returns 
+    //  */
+    //  async doDragAndDrop(fromElement: WebElement, toElement: WebElement): Promise<void> {
+    //     //required importing "Actions" 
+    //     // return this.driver.actions().dragAndDrop(fromElement, toElement).perform()
+    //     console.log(`doDragAndDrop: starting`)
+    //     const actionPause = 500
+    //     const actionPromise = this.driver
+    //             .actions()
+    //             .move({origin: fromElement, duration: 500}) //x:20, y:20, 
+    //             .pause(actionPause)
+    //             .press(Button.LEFT)
+    //             .move({origin: Origin.POINTER, x:5, y:5}) // test
+    //             .pause(actionPause)
+    //             .move({origin: toElement, duration: 2000})
+    //             .pause(actionPause)
+    //             .move({origin: Origin.POINTER, x:5, y:5}) // test
+    //             .release(Button.LEFT)
+    //             .pause(actionPause)
+    //             .perform();
+    //     console.log(`doDragAndDrop: Action promise constructed`)
+    //     return actionPromise
+    // }
 
 }
