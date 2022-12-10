@@ -59,6 +59,12 @@ export class BasePage {
         }
     }
 
+    async verifyElementsExist(elementBys: By[]): Promise<void> {
+        for (const forLocator of elementBys) {
+            this.verifyElementExists(forLocator)
+        } 
+    }
+
     // Should be exported to personal basePage - add mouse icon to view what it's doing while running tests
     /**
     * Some debug code inspired by:

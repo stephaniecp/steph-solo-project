@@ -76,17 +76,96 @@ export class PageObject extends BasePage {
         super({url:"https://www.vansaircraft.com/"})
     }
 
+// Test Suite 0
     async clickToAcessStore() {
         return await this.click(this.byStoreNavIdDesktop)
     }
-
-    // Maybe not necessary since not called much
-    async clickToAircraftNav() {
-        return await this.click(this.byAircraftNavCss)
+// Test Suite 1
+    getAllMainNavLocators():By[] {
+        return [
+            this.byAircraftNavCss,
+            this.byLearnNavCss,
+            this.byBuildNavCss,
+            this.bySupportNavCss,
+            this.byCommunityNavCss,
+            this.byStoreNavIdDesktop,
+            this.bySearchNavBar,
+            this.byOrderAKitNavCta
+        ]
+    }
+    getAllAircraftNavLocators():By[] {
+        return [
+            this.byAirplaneRv15,
+            this.byAirplaneRv14,
+            this.byAirplaneRv12is,
+            this.byAirplaneRv10,
+            this.byAirplaneRv9,
+            this.byAirplaneRv8,
+            this.byAirplaneRv7,
+            this.byAirplaneRv4,
+            this.byAirplaneRv3
+        ]
+    }
+    getAllLearnNavLocators():By[] {
+        return [
+            this.bylearnRvDesign,
+            this.byLearnFlyingAnRv,
+            this.byLearnSafety,
+            this.byLearnWhichRvIsRight,
+            this.byLearnRvFlightTraining,
+            this.byLearnConstruction,
+            this.byLearnDemo,
+            this.byLearnFaq
+        ]
+    }
+    getAllBuildNavLocators():By[] {
+        return [
+            this.byBuildBuildinganRv,
+            this.byBuildStandardKits,
+            this.byBuildQuickbuild,
+            this.byBuildPowerplants,
+            this.byBuildPropellers,
+            this.byBuildTools,
+            this.byBuildStemPrograms
+        ]
+    }
+    getAllSupportNavLocators():By[] {
+        return [
+            this.bySupportBuilder,
+            this.bySupportSafety,
+            this.bySupportSlsa,
+            this.bySupportPlans,
+            this.bySupportTech,
+            this.bySupportDownloads
+        ]
+    }
+    getAllCommunityNavLocators():By[] {
+        return [
+            this.byCommunautyStories,
+            this.byCommunautyBuilderGr,
+            this.byCommunautyFirstFlights,
+            this.byCommunautyNews,
+            this.byCommunautyEvents,
+            this.byCommunautyInternetR
+        ]
+    }
+    getAllHomePageLocators():By[] {
+        return [
+            this.byHomeHeroImageSection,
+            this.byHomeContainerRvCount,
+            this.byHomeContainerRvCountCta,
+            this.byHomeEmailSignUp,
+            this.byHomeEmailSignUpCta,
+            this.byHomeContainerBuildingAnRv,
+            this.byHomeContainerBuildingAnRvCta,
+            this.byHomeContainerFunSafe,
+            this.byHomeContainerFunSafeCta,
+            this.byHomeContainerGetOff,
+            this.byHomeContainerGetOffCta,
+            this.byHomeContainerVideoBanner,
+            this.byHomeContainerFooterNavigation
+        ]
     }
 
-    async clickToRv15() {
-
-    }
 }
 

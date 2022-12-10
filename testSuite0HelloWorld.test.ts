@@ -12,9 +12,9 @@ beforeAll(async () => {
 console.log("BEFORE ALL - Browser opens at Url + maximizes + show")
 
 
-describe("Test suite 1: Reality check", () => {
+describe("Test suite 0: Reality check", () => {
     
-    test("Test case: can navigate to the Van's store", async () => {
+    test("0.1 Test case: can navigate to the Van's store", async () => {
         console.log("Found webpage")  
         await pageObject.clickToAcessStore()
         console.log("Found/clicked CTA to access store")
@@ -23,7 +23,7 @@ describe("Test suite 1: Reality check", () => {
     })
 })
 
-afterAll(async () => {
-    await pageObject.driver.quit()
-    console.log("AFTER ALL - Browser quit")
-});
+// afterAll(async () => {
+//     await pageObject.driver.quit()
+//     console.log("AFTER ALL - Browser quit")
+// });
