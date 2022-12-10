@@ -1,7 +1,7 @@
 // Imported from class notes / qaHomeworkWiki / 2.8
 // See Mars's example from 11/23 class: https://github.com/MarohnHoward/group-number-projectpt9/blob/main/basePage.ts
 
-import {Builder, By, Capabilities, until, WebDriver, WebElement} from "selenium-webdriver";
+import {Builder, By, Capabilities, until, WebDriver, WebElement, Actions} from "selenium-webdriver";
 const chromedriver = require("chromedriver")
 
 interface Options {
@@ -49,6 +49,16 @@ export class BasePage {
         return (await this.getElement(elementBy)).getAttribute(attribute)
     }
 
+    async verifyElementExists(elementBy: By): Promise<void> {
+        console.log(`verifyElementExists by:${elementBy}`)
+        try {
+            await this.getElement(elementBy)
+        } catch (err) {
+            console.error(`verifyElementExists unable to verify by:${elementBy}`)
+            throw err
+        }
+    }
+
     // Should be exported to personal basePage - add mouse icon to view what it's doing while running tests
     /**
     * Some debug code inspired by:
@@ -86,6 +96,9 @@ export class BasePage {
         let elements = await this.driver.findElements(elementBy);
         return elements;
     } 
+
+    // async hoverOverElement(elementBy: By): Promise<WebElement[]>  {
+    // }
 
     // /**
     //  * Convenience method for drag and drop from the Actions API https://www.selenium.dev/documentation/webdriver/actions_api/
