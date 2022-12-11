@@ -15,6 +15,7 @@ export class PageObject extends BasePage {
     bySearchNavBar: By = By.xpath("//button[@aria-controls='primary_navigation-search-form']")
     byOrderAKitNavCta: By = By.css('[class= "banner__nav-primary-button"]')
     byCartBtnCss: By = By.css('.action.showcart')
+    byVansLogoNavBar: By = By.xpath("//img[@src='https://www.vansaircraft.com/wp-content/themes/vans-aircraft/dist/images/logo-black.svg']")
 // Nav Bar [Aircraft] list items
     // Relative xPath selectors for the 9 li below
     byAirplaneRv15: By = By.xpath("//li[@id='menu-item-22589']//a[contains(text(),'RV-15')]")
@@ -56,7 +57,7 @@ export class PageObject extends BasePage {
     byCommunautyFirstFlights: By = By.xpath("//li[@id='menu-item-580']//a[normalize-space()='First Flights']")
     byCommunautyNews: By = By.xpath("//li[@id='menu-item-162']//a[normalize-space()='News']")
     byCommunautyEvents: By = By.xpath("//li[@id='menu-item-11611']//a[normalize-space()='Events']")
-    byCommunautyInternetR: By = By.xpath("//li[@id='menu-item-14255']//a[normalize-space()='Internet Resources']")
+    byCommunautyInternetR: By = By.css("li[id='menu-item-14255'] a")
 // Home page (non nav bar) selectors
     byHomeHeroImageSection:By = By.css('.flickity-viewport') //  Verified
     byHomeContainerRvCount:By = By.css('.module-home-blocks__rvs') //  Verified
@@ -149,6 +150,8 @@ export class PageObject extends BasePage {
             this.byCommunautyInternetR
         ]
     }
+
+// Test Suite 2
     getAllHomePageLocators():By[] {
         return [
             this.byHomeHeroImageSection,
@@ -167,5 +170,17 @@ export class PageObject extends BasePage {
         ]
     }
 
-}
+// Test Suite 3
+    searchIconCollapsed: By = By.xpath("//button[@aria-controls='primary_navigation-search-form']")
+    searchFieldExpanded: By = By.xpath("//form[@id='primary_navigation-search-form']//input[@placeholder='Search …']")
+    results: By = By.xpath("//section[@class='post-single']//div[@class='container']")
+    async search(searchTerm: string) {
+        await this.click(this.searchIconCollapsed)
+        return this.setInput(this.searchFieldExpanded, `${searchTerm}\n`)
+    }
+    async getResults() {
+        return this.getText(this.results)
+    }
+
+} // End of export
 

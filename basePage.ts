@@ -2,6 +2,7 @@
 // See Mars's example from 11/23 class: https://github.com/MarohnHoward/group-number-projectpt9/blob/main/basePage.ts
 
 import {Builder, By, Capabilities, until, WebDriver, WebElement, Actions} from "selenium-webdriver";
+const fs= require('fs')  //  (Built in from Node) Added for the screenshot/.txt tests per Unit 2.8 example https://github.com/MarohnHoward/qrpt9InClassExamples/blob/main/unit2.8/googleWBaseTest.test.ts
 const chromedriver = require("chromedriver")
 
 interface Options {
@@ -61,8 +62,20 @@ export class BasePage {
 
     async verifyElementsExist(elementBys: By[]): Promise<void> {
         for (const forLocator of elementBys) {
-            this.verifyElementExists(forLocator)
+            await this.verifyElementExists(forLocator)
         } 
+    }
+
+    async takeScreenShot(filePath: string): Promise<void> {
+        await fs.writeFile(
+            filePath, 
+            await this.driver.takeScreenshot(), 
+            "base64",
+            (e) => {
+                if (e) console.error(e)
+                else console.log('Save Successful')
+            }
+        )
     }
 
     // Should be exported to personal basePage - add mouse icon to view what it's doing while running tests
