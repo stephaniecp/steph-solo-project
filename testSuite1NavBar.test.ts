@@ -10,7 +10,7 @@ beforeAll(async () => {
   await pageObject.showMouseMovement()
 })
 
-describe("Test suite 1: Verify navbar elements are all present", () => {
+describe("#1 Verify navbar elements are all present", () => {
     test("1.0 Can navigate to the Van's store and return to the home page", async () => {
         await pageObject.clickToAcessStore()
         await pageObject.getElement(pageObject.byCartBtnCss) // Verifying element specific to the Store
@@ -46,6 +46,24 @@ describe("Test suite 1: Verify navbar elements are all present", () => {
         await pageObject.click(pageObject.byCommunityNavCss)
         await pageObject.verifyElementsExist(pageObject.getAllCommunityNavLocators())
         console.log("1.6 Done - Located all sub menu items below Community")
+    })
+})
+
+describe("#2 Home page testing", () => {
+
+    test("2.0 Can locate the key parts of the home part outside of the nav bar", async() => {  
+        await pageObject.verifyElementsExist(pageObject.getAllHomePageLocators())
+    })
+    test("2.1 Take screenshot of the home page", async() => {
+        await pageObject.takeScreenShot(`${__dirname}/archive/screenshots/vansScreenshot.png`)
+    })
+})
+
+describe("#3 Search function", () => {
+    test("Can do a search and find relevant content", async() => {
+      await pageObject.search('Aircraft')
+      let text = await pageObject.getResults()
+      expect(text).toContain('Aircraft')
     })
 })
 

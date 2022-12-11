@@ -10,13 +10,13 @@ beforeAll(async () => {
   await pageObject.showMouseMovement()
 })
 
-describe("", () => {
-    test("Can do a search and find relevant content", async() => {
-      await pageObject.search('Aircraft')
-      let text = await pageObject.getResults()
-      expect(text).toContain('Aircraft')
-    })
-})
+// describe("", () => {
+//     test("Can do a search and find relevant content", async() => {
+//       await pageObject.search('Aircraft')
+//       let text = await pageObject.getResults()
+//       expect(text).toContain('Aircraft')
+//     })
+// })
 
 afterAll(async () => {
     await pageObject.driver.quit()
