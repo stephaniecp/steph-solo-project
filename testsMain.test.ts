@@ -10,14 +10,20 @@ beforeAll(async () => {
   await pageObject.showMouseMovement()
 })
 
-describe("#1 Navbar elements + store and logo links", () => {
-    test("1.0 Can navigate to the Van's store and return to the home page", async () => {
+
+describe("0 - ", () => {
+    test("Can locate ___ element at different screen sizes ", async() => {
+    })
+})
+
+describe("1 - Navbar elements + store and logo/home links", () => {
+    test("Can navigate to the Van's store and return to the home page", async () => {
         await pageObject.clickToAcessStore()
         await pageObject.getElement(pageObject.byCartBtnCss) // Verifying element specific to the Store
         await pageObject.click(pageObject.byVansLogoNavBar) // Returning to the home page
         console.log("Navigated to the Van's store and returned to the home page")
     })
-    test("1.1 Can locate the nav bar menu items", async() => { 
+    test("Can locate the nav bar menu items", async() => { 
         // Main
         await pageObject.verifyElementsExist(pageObject.getAllMainNavLocators())
         console.log("Located the main 8 navbar elements")
@@ -45,21 +51,30 @@ describe("#1 Navbar elements + store and logo links", () => {
     })
 })
 
-describe("#2 Home page testing", () => {
+describe("2 - Home page testing", () => {
 
-    test("2.0 Can locate the key parts of the home part outside of the nav bar", async() => {  
+    test("Can locate the key parts of the home part outside of the nav bar", async() => {  
         await pageObject.verifyElementsExist(pageObject.getAllHomePageLocators())
     })
-    test("2.1 Take screenshot of the home page", async() => {
+    test("Take screenshot of the home page", async() => {
         await pageObject.takeScreenShot(`${__dirname}/archive/screenshots/vansScreenshot.png`)
     })
 })
 
-describe("#3 Search function", () => {
-    test("Can do a search and find relevant content", async() => {
-      await pageObject.search('Aircraft')
-      let text = await pageObject.getResults()
-      expect(text).toContain('Aircraft')
+describe("3 - Search function", () => {
+    // Do a search
+        test("Can do a search and find relevant content and save the search logs", async() => {
+            await pageObject.search('Aircraft')
+            let textResults = await pageObject.getResults()
+        expect(textResults).toContain('Aircraft')
+        // Save the logs
+            await pageObject.writeSearchLogFile(`${__dirname}/archive/testsLogs/testSearchLog.txt`)
+        })
+    })
+
+describe("4 - Cart basic functionality", () => {
+    test("Can add item to cart", async() => {
+        
     })
 })
 

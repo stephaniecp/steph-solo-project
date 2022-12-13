@@ -2,6 +2,7 @@
 // See Mars's example from 11/23 class: https://github.com/MarohnHoward/group-number-projectpt9/blob/main/basePage.ts
 
 import {Builder, By, Capabilities, until, WebDriver, WebElement, Actions} from "selenium-webdriver";
+import { PageObject } from "./mainPageObject";
 const fs= require('fs')  //  (Built in from Node) Added for the screenshot/.txt tests per Unit 2.8 example https://github.com/MarohnHoward/qrpt9InClassExamples/blob/main/unit2.8/googleWBaseTest.test.ts
 const chromedriver = require("chromedriver")
 
