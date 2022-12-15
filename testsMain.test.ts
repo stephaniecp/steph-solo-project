@@ -72,9 +72,17 @@ describe("3 - Search function", () => {
         })
     })
 
-describe("4 - Cart basic functionality", () => {
-    test("Can add item to cart", async() => {
+describe("4 - Email sign up form", () => {
+    test("User is able to fill the fields with text", async() => {
+        await pageObject.setInput(pageObject.byHomeEmailFormFirstName, "John")
+        await pageObject.setInput(pageObject.byHomeEmailFormLastName, "Doe")
+        await pageObject.setInput(pageObject.byHomeEmailFormEmail, "afakeemail@fakeemail.com")
+    })
+})
         
+describe("5 - Cart basic functionality", () => {
+    test("Can add item to cart and verify it was added in the cart", async() => {
+        await pageObject.addItemToCart()
     })
 })
 
