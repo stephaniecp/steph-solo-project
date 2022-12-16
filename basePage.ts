@@ -1,7 +1,7 @@
 // Imported from class notes / qaHomeworkWiki / 2.8
 // See Mars's example from 11/23 class: https://github.com/MarohnHoward/group-number-projectpt9/blob/main/basePage.ts
 
-import {Builder, By, Capabilities, until, WebDriver, WebElement, Actions} from "selenium-webdriver";
+import {Builder, By, Capabilities, until, WebDriver, WebElement, Actions, Button} from "selenium-webdriver";
 import { PageObject } from "./mainPageObject";
 const fs= require('fs')  //  (Built in from Node) Added for the screenshot/.txt tests per Unit 2.8 example https://github.com/MarohnHoward/qrpt9InClassExamples/blob/main/unit2.8/googleWBaseTest.test.ts
 const chromedriver = require("chromedriver")
@@ -77,6 +77,28 @@ export class BasePage {
                 else console.log('Save Successful')
             }
         )
+    }
+
+    actionWiggle(actions:Actions, originElement:WebElement, moveDurationMs:number=100):Actions {
+        let result:Actions = actions.move({origin: originElement, duration: moveDurationMs}) 
+        actions = actions.move({origin: originElement, x: 10, y: 0, duration: moveDurationMs}) 
+        result = actions.move({origin: originElement, x: 0, y: -10, duration: moveDurationMs}) 
+        result = actions.move({origin: originElement, x: -10, y: 0, duration: moveDurationMs}) 
+        result = actions.move({origin: originElement, x: 0, y: 10, duration: moveDurationMs}) 
+        result = actions.pause(moveDurationMs)
+        return result;
+    }
+
+    actionPressWiggle(actions:Actions, originElement:WebElement, moveDurationMs:number=100):Actions {
+        actions = this.actionWiggle(actions, originElement, moveDurationMs);
+        actions.press(Button.LEFT)
+        return this.actionWiggle(actions, originElement, moveDurationMs)
+    }
+
+    actionReleaseWiggle(actions:Actions, originElement:WebElement, moveDurationMs:number=100):Actions {
+        actions = this.actionWiggle(actions, originElement, moveDurationMs);
+        actions.release(Button.LEFT)
+        return this.actionWiggle(actions, originElement, moveDurationMs)        
     }
 
     // Should be exported to personal basePage - add mouse icon to view what it's doing while running tests

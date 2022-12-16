@@ -5,6 +5,9 @@ const fs= require('fs')  //  (Built in from Node) Added for the screenshot/.txt 
 export class PageObject extends BasePage {
 //Nav Bar container
     byNavBarBanner: By = By.id("banner") // Verified path - $$('[id= "banner"]') 
+// Test suite 0: 
+    byNavAircraftTabSmallScreen: By = By.xpath("//li[@id='menu-item-12739']")
+    byNavAircraftTabBigScreen: By = By.xpath("//li[@id='menu-item-426']//a[contains(text(),'Aircraft')]")
 // Test suite 1: Nav Bar [Main] list items 
     // Relative CSS Selector (5 links below)
     byAircraftNavCss: By = By.css('body > div:nth-child(13) > div:nth-child(1) > nav:nth-child(3) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)')
@@ -89,10 +92,16 @@ export class PageObject extends BasePage {
     }
 
 // Test Suite 0
+    async findElementOnTwoScreenSizes() {
+        const maximizedDesktop = await this.driver.manage().window().maximize()
+        //  INCOMPLETE
+    }
+    
+// Test Suite 1
     async clickToAcessStore() {
         return await this.click(this.byStoreNavIdDesktop)
     }
-// Test Suite 1
+
     getAllMainNavLocators():By[] {
         return [
             this.byAircraftNavCss,
@@ -202,11 +211,6 @@ export class PageObject extends BasePage {
         )
     }
 
-// Test Suite 4
-    async typeInField(typedCharacters: string): Promise<void> {
-
-    }
-
 // Test Suite 5
     async addItemToCart() {
         await this.clickToAcessStore()
@@ -217,6 +221,15 @@ export class PageObject extends BasePage {
         await this.verifyElementExists(this.byStoreNavCartExpanded)
         console.log("Test sutie 5: One or more item was found in the cart")
         await this.click(this.byVansLogoNavBar) // Returning to the home page
+    }
+
+// BONUS Test Suite
+    async canHoverOverOrderKitCta() {
+        const hoverAction = this.driver.actions()
+        const ctaElement = await this.getElement(this.byOrderAKitNavCta)
+        console.log(`Hover = ${hoverAction} CTA = ${ctaElement}`)
+        await this.actionWiggle(hoverAction, ctaElement, 100)
+        await hoverAction.perform() // Actions don't actually happen until perform is called
     }
 
 } // End of export

@@ -1,19 +1,20 @@
 import {expect, jest, test} from '@jest/globals' // See https://jestjs.io/docs/jest-object
 import { SearchSource } from 'jest'
+import { Actions } from 'selenium-webdriver'
 import {PageObject} from './mainPageObject'
 import {storePageObject} from './storePageObject' 
 const pageObject = new PageObject()
 
 beforeAll(async () => {
   await pageObject.navigate()
-  await pageObject.driver.manage().window().maximize()
   await pageObject.showMouseMovement()
+  await pageObject.driver.manage().window().maximize()
 })
 
 
 describe("0 - ", () => {
-    test("Can locate ___ element at different screen sizes ", async() => {
-    })
+    // test("Can locate ___ element at different screen sizes ", async() => {
+    // })
 })
 
 describe("1 - Navbar elements + store and logo/home links", () => {
@@ -86,7 +87,14 @@ describe("5 - Cart basic functionality", () => {
     })
 })
 
-afterAll(async () => {
-    await pageObject.driver.quit()
-    console.log("AFTER ALL - Browser quit")
-});
+describe("BONUS", () => {
+    test.only("Can hover over order A Kit CTA", async () => {
+        await pageObject.canHoverOverOrderKitCta()
+        console.log("End of bonus (hover) test")
+    })
+})
+
+// afterAll(async () => {
+//     await pageObject.driver.quit()
+//     console.log("AFTER ALL - Browser quit")
+// });
