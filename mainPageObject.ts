@@ -223,13 +223,18 @@ export class PageObject extends BasePage {
         return this.getText(this.results)
     }
     async writeSearchLogFile(filePath: string): Promise<void> {
+        console.log(`Date1=${Date.now()}`) // Temporary
         let text = await this.getResults()
+        console.log(`Date2=${Date.now()}`) // Temporary
         await fs.writeFile(
             filePath, text, (e) => {
                 if (e) console.error(e)
                 else console.log('3: Search Logs Saved Successfully')
+                console.log(`Date3=${Date.now()}`) // Temporary
             }
         )
+        console.log(`Date4=${Date.now()}`) // Temporary
+        await this.click(this.byVansLogoNavBar) // Returning to the home page
     }
 
 // Test Suite 5

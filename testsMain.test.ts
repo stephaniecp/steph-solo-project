@@ -12,11 +12,7 @@ beforeAll(async () => {
 })
 
 
-describe("0 - Testing locators for elements which change based on screen size", () => {
-    test("Can locate 'Aircraft' menu item at different screen sizes (locator changes for small vs big screens)", async() => {
-        await pageObject.reziseWindowToTestChangingElements()
-    })
-})
+
 
 describe("1 - Navbar elements + store and logo/home links", () => {
     test("Can navigate to the Van's store and return to the home page", async () => {
@@ -95,7 +91,13 @@ describe("BONUS", () => {
     })
 })
 
-// afterAll(async () => {
-//     await pageObject.driver.quit()
-//     console.log("AFTER ALL - Browser quit")
-// });
+describe("0 - Testing locators for elements which change based on screen size", () => {
+    test("Can locate 'Aircraft' menu item at different screen sizes (locator changes for small vs big screens)", async() => {
+        await pageObject.reziseWindowToTestChangingElements()
+    }) 
+})
+
+afterAll(async () => {
+    await pageObject.driver.quit()
+    console.log("AFTER ALL - Browser quit")
+});
