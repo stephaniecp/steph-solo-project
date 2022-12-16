@@ -80,13 +80,12 @@ export class BasePage {
     }
 
     actionWiggle(actions:Actions, originElement:WebElement, moveDurationMs:number=100):Actions {
-        let result:Actions = actions.move({origin: originElement, duration: moveDurationMs}) 
-        actions = actions.move({origin: originElement, x: 10, y: 0, duration: moveDurationMs}) 
-        result = actions.move({origin: originElement, x: 0, y: -10, duration: moveDurationMs}) 
-        result = actions.move({origin: originElement, x: -10, y: 0, duration: moveDurationMs}) 
-        result = actions.move({origin: originElement, x: 0, y: 10, duration: moveDurationMs}) 
-        result = actions.pause(moveDurationMs)
-        return result;
+        return actions.move({origin: originElement, duration: moveDurationMs}) 
+        .move({origin: originElement, x: 10, y: 0, duration: moveDurationMs}) 
+        .move({origin: originElement, x: 0, y: -10, duration: moveDurationMs}) 
+        .move({origin: originElement, x: -10, y: 0, duration: moveDurationMs}) 
+        .move({origin: originElement, x: 0, y: 10, duration: moveDurationMs}) 
+        .pause(moveDurationMs)
     }
 
     actionPressWiggle(actions:Actions, originElement:WebElement, moveDurationMs:number=100):Actions {

@@ -3,12 +3,13 @@ import {BasePage} from './basePage'
 const fs= require('fs')  //  (Built in from Node) Added for the screenshot/.txt tests per Unit 2.8 example https://github.com/MarohnHoward/qrpt9InClassExamples/blob/main/unit2.8/googleWBaseTest.test.ts
 
 export class PageObject extends BasePage {
-//Nav Bar container
-    byNavBarBanner: By = By.id("banner") // Verified path - $$('[id= "banner"]') 
 // Test suite 0: 
     byNavAircraftTabSmallScreen: By = By.xpath("//li[@id='menu-item-12739']")
     byNavAircraftTabBigScreen: By = By.xpath("//li[@id='menu-item-426']//a[contains(text(),'Aircraft')]")
+    byCollapsedNavMenuIcon: By = By.xpath("//button[@class='banner__nav-toggle js-toggle-mobile-menu']//span[1]")
 // Test suite 1: Nav Bar [Main] list items 
+    //Nav Bar container
+    byNavBarBanner: By = By.id("banner") // Verified path - $$('[id= "banner"]') 
     // Relative CSS Selector (5 links below)
     byAircraftNavCss: By = By.css('body > div:nth-child(13) > div:nth-child(1) > nav:nth-child(3) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)')
     byLearnNavCss: By = By.css('body > div:nth-child(13) > div:nth-child(1) > nav:nth-child(3) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1)')
@@ -92,9 +93,29 @@ export class PageObject extends BasePage {
     }
 
 // Test Suite 0
-    async findElementOnTwoScreenSizes() {
-        const maximizedDesktop = await this.driver.manage().window().maximize()
-        //  INCOMPLETE
+    async findElementOnEitherScreenSizes() {
+        console.log("what is get size? " + typeof(await (await this.driver.manage()).window()).getRect())
+        let currentSize = await this.driver.manage().window().getRect() // Gets screen size (width and height)
+        let currentScreenWidth = currentSize.width // TRYING TO Get only the width
+        console.log(`width is yo!!!=${currentScreenWidth}`)
+        if (currentScreenWidth <= 800) {
+            await this.verifyElementExists(this.byNavAircraftTabSmallScreen) // 799px wide and below
+        }
+        else {
+            await this.verifyElementExists(this.byNavAircraftTabBigScreen) // 800px wide and above
+        }
+    }
+    async reziseWindowToTestChangingElements() {
+        // Initialized on maximized screen size as per beforeAll statement in Test file
+        await this.findElementOnEitherScreenSizes() // Tests on large screen
+        console.log("0: Found element on maximized screen")
+        let width = 700
+        let height = 500
+        await this.driver.manage().window().setRect({x: 0, y: 0, width: width, height: height})  // Reduses screen size to the value of width/height set above
+        await this.click(this.byCollapsedNavMenuIcon) // Expands small screen menu to reveal the expected element
+        await this.findElementOnEitherScreenSizes() // Tests on small screen
+        console.log("0: Found element on small screen")
+        await this.driver.manage().window().maximize() // Returns to full expanded screen size for the following tests
     }
     
 // Test Suite 1
@@ -206,7 +227,7 @@ export class PageObject extends BasePage {
         await fs.writeFile(
             filePath, text, (e) => {
                 if (e) console.error(e)
-                else console.log('Search Logs Saved Successfully')
+                else console.log('3: Search Logs Saved Successfully')
             }
         )
     }
@@ -219,7 +240,7 @@ export class PageObject extends BasePage {
         await this.click(this.byStoreGiftRvTrainingProjectLinkImg)
         await this.click(this.byStoreGiftItemAddToCartCta)
         await this.verifyElementExists(this.byStoreNavCartExpanded)
-        console.log("Test sutie 5: One or more item was found in the cart")
+        console.log(" 5: One or more item was found in the cart")
         await this.click(this.byVansLogoNavBar) // Returning to the home page
     }
 
@@ -227,7 +248,7 @@ export class PageObject extends BasePage {
     async canHoverOverOrderKitCta() {
         const hoverAction = this.driver.actions()
         const ctaElement = await this.getElement(this.byOrderAKitNavCta)
-        console.log(`Hover = ${hoverAction} CTA = ${ctaElement}`)
+        console.log(`Bonus: Hover = ${hoverAction} CTA = ${ctaElement}`)
         await this.actionWiggle(hoverAction, ctaElement, 100)
         await hoverAction.perform() // Actions don't actually happen until perform is called
     }

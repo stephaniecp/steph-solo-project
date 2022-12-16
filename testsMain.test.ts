@@ -12,9 +12,10 @@ beforeAll(async () => {
 })
 
 
-describe("0 - ", () => {
-    // test("Can locate ___ element at different screen sizes ", async() => {
-    // })
+describe("0 - Testing locators for elements which change based on screen size", () => {
+    test("Can locate 'Aircraft' menu item at different screen sizes (locator changes for small vs big screens)", async() => {
+        await pageObject.reziseWindowToTestChangingElements()
+    })
 })
 
 describe("1 - Navbar elements + store and logo/home links", () => {
@@ -88,7 +89,7 @@ describe("5 - Cart basic functionality", () => {
 })
 
 describe("BONUS", () => {
-    test.only("Can hover over order A Kit CTA", async () => {
+    test("Can hover over order A Kit CTA", async () => {
         await pageObject.canHoverOverOrderKitCta()
         console.log("End of bonus (hover) test")
     })
