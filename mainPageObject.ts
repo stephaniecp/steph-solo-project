@@ -83,7 +83,7 @@ export class PageObject extends BasePage {
     byHomeEmailFormEmail:By = By.xpath("//input[@placeholder='Email address']")
 // Test suite 5: testing
     byStoreGiftMenuItem:By = By.xpath("//a[normalize-space()='Gifts']") 
-    byStoreGiftRvTrainingProjectLinkImg:By = By.xpath("//img[@alt='RV TRAINING PROJECT-1']")
+    byStoreGiftRvTrainingProjectLinkImg:By = By.xpath(`//img[@alt='CD KITLOG PRO']`) // EDITING TO FX BUG
     byStoreGiftItemAddToCartCta:By = By.xpath("//button[@id='product-addtocart-button']")
     byStoreNavCartCta: By = By.xpath("//a[@class='action showcart']")
     byStoreNavCartExpanded: By = By.xpath("//span[@class='counter-number']") // Only present when there is 1+ item in the cart
@@ -115,6 +115,7 @@ export class PageObject extends BasePage {
         await this.click(this.byCollapsedNavMenuIcon) // Expands small screen menu to reveal the expected element
         await this.findElementOnEitherScreenSizes() // Tests on small screen
         console.log("0: Found element on small screen")
+        await this.click(this.byVansLogoNavBar) // Returning to the home page
         await this.driver.manage().window().maximize() // Returns to full expanded screen size for the following tests
     }
     
@@ -237,16 +238,22 @@ export class PageObject extends BasePage {
         await this.click(this.byVansLogoNavBar) // Returning to the home page
     }
 
-// Test Suite 5
+    // Test Suite 5
     async addItemToCart() {
+        this.navigate()
         await this.clickToAcessStore()
+        console.log("5 - Step 1")
         await this.click(this.byStoreGiftMenuItem)
         jest.setTimeout(1000)
+        console.log("5 - Step 2")
         await this.click(this.byStoreGiftRvTrainingProjectLinkImg)
+        console.log("5 - Step 3")
         await this.click(this.byStoreGiftItemAddToCartCta)
+        console.log("5 - Step 4")
         await this.verifyElementExists(this.byStoreNavCartExpanded)
         console.log(" 5: One or more item was found in the cart")
         await this.click(this.byVansLogoNavBar) // Returning to the home page
+        console.log("5 - Step 5")
     }
 
 // BONUS Test Suite
